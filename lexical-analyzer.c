@@ -3,9 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-// Function to check if a string is a keyword
-int checkBuffer(char buffer[]) {
-    // Array of standard C keywords 
+void checkBuffer(char buffer[]) {
     char keywords[32][10] = {
         "auto", "break", "case", "char", "const", "continue", "default", "do",
         "double", "else", "enum", "extern", "float", "for", "goto", "if",
@@ -19,12 +17,12 @@ int checkBuffer(char buffer[]) {
             return;
         }
     }
-    printf("%s is an identifier\n",buffer);
+    printf("%s is an identifier\n", buffer);
 }
 
 int main() {
     char ch, buffer[15], operators[] = "+-*/%=";
-    FILE *fp= fopen("input.txt", "r");;
+    FILE *fp = fopen("input.txt", "r");
     int j = 0;
 
     if (!fp) {
@@ -45,10 +43,11 @@ int main() {
             buffer[j++] = ch;
         }
         // Check for delimiters (space, newline, tab)
-        else if (isspace(ch) && j != 0)
+        else if (isspace(ch) && j != 0) { 
             buffer[j] = '\0';
+            checkBuffer(buffer);          
             j = 0;
-        }
+        }                               
     }
 
     // Process leftover token at End-Of-File
