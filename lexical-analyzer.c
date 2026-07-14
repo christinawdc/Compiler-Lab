@@ -36,27 +36,10 @@ int main() {
     while ((ch = fgetc(fp)) != EOF) {
         
         // Check if character is an operator
-        int isOperator = 0;
-        for (int i = 0; i < 6; i++) {
-            if (ch == operators[i]) {
-                isOperator = 1;
-                break;
-            }
-        }
-
-        if (isOperator) {
-            // If there's something in the buffer, process it before handling the operator
-            if (j != 0) {
-                buffer[j] = '\0';
-                j = 0;
-                if (isKeyword(buffer)) {
-                    printf("%s is a keyword\n", buffer);
-                } else {
-                    printf("%s is an identifier\n", buffer);
-                }
-            }
+        if (strchr(operators, ch)) {
+            if (j > 0) { buffer[j] = '\0'; j = 0; checkBuffer(buffer); }
             printf("%c is an operator\n", ch);
-        }
+        } 
         // Check if character is alphanumeric
         else if (isalnum(ch)) {
             buffer[j++] = ch;
